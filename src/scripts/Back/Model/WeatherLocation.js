@@ -1,7 +1,6 @@
 const WeatherLocation = (function () {
   /**
    *
-   * @param {number} dblId
    * @param {string} strCity
    * @param {string} strCountry
    * @param {number} dblLatitude
@@ -17,10 +16,11 @@ const WeatherLocation = (function () {
    * @param {number} dblHumidity
    * @param {number} dblRainPerc
    * @param {number} dblWindSpeed
+   * @param {string}strIconId
    * @returns
    */
   const shapeWeatherLocation = function (
-    dblId,
+    //dblId,
     strCity,
     strCountry,
     dblLatitude,
@@ -35,10 +35,11 @@ const WeatherLocation = (function () {
     dblFeelsLikeTemp,
     dblHumidity,
     dblRainPerc,
-    dblWindSpeed
+    dblWindSpeed,
+    strIconId
   ) {
     const objWL = {
-      dblId: dblId,
+      //dblId: dblId,
       strCity: strCity,
       strCountry: strCountry,
       dblLatitude: dblLatitude,
@@ -54,11 +55,12 @@ const WeatherLocation = (function () {
       dblHumidity: dblHumidity,
       dblRainPerc: dblRainPerc,
       dblWindSpeed: dblWindSpeed,
+      strIconId: strIconId,
     };
 
     return {
-      getId() {
-        return objWL.dblId;
+      getIconId() {
+        return objWL.strIconId;
       },
       getCity() {
         return objWL.strCity;
@@ -108,9 +110,7 @@ const WeatherLocation = (function () {
     };
   };
 
-  const UNITS = {};
-
-  return { shapeWeatherLocation, UNITS };
+  return { shapeWeatherLocation };
 })();
 
 export { WeatherLocation };
