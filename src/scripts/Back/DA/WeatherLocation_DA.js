@@ -7,7 +7,9 @@ const WeatherLocation_DA = (function () {
       objWeatherAPI.sys.country,
       Number(objWeatherAPI.coord.lat),
       Number(objWeatherAPI.coord.lon),
-      new Date(objWeatherAPI.dt),
+      new Date(
+        (Number(objWeatherAPI.dt) + Number(objWeatherAPI.timezone)) * 1000
+      ),
       strUnits,
       Number(objWeatherAPI.main.temp),
       objWeatherAPI.weather.id,
@@ -73,15 +75,9 @@ const WeatherLocation_DA = (function () {
     return formatWeatherObject(result, strUnits);
   };
 
-  const UNITS = {
-    Celsius: "metric",
-    Fahrenheit: "imperial",
-    Kelvin: "standard",
-  };
-
   return {
     create() {
-      return { getWeatherByGeoLocation, getWeatherByCityName, UNITS };
+      return { getWeatherByGeoLocation, getWeatherByCityName };
     },
   };
 })();

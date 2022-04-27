@@ -74,7 +74,11 @@ const HourlyWeather_DA = (function () {
     return formatHourlyWeatherList(result, strUnits, intLongitude, intLatitude);
   };
 
-  return { getHourlyWeather };
+  return {
+    create() {
+      return { getHourlyWeather };
+    },
+  };
 })();
 
 export { HourlyWeather_DA };
