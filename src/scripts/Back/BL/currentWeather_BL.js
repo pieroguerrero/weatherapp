@@ -38,7 +38,11 @@ const currentWeather_BL = (function () {
     return objResult;
   };
 
-  return { getByGeoLocation, getByCityName, UNITS };
+  return {
+    create() {
+      return { getByGeoLocation, getByCityName, UNITS };
+    },
+  };
 })();
 
 export { currentWeather_BL };

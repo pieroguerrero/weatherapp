@@ -1,5 +1,4 @@
 import { HourlyWeather_DA } from "../DA/HourlyWeather_DA";
-import { HourlyWeather } from "../Model/HourlyWeather";
 
 const hourlyWeather_BL = (function () {
   /**
@@ -15,13 +14,24 @@ const hourlyWeather_BL = (function () {
     strUnits
   ) {
     const objHourlyWeather_Data = HourlyWeather_DA.create();
-    const objResult = await objHourlyWeather_Data.getHourlyWeather(
-      intLatitude,
-      intLongitude,
-      strUnits
-    );
+    try {
+      const objResult = await objHourlyWeather_Data.getHourlyWeather(
+        intLatitude,
+        intLongitude,
+        strUnits
+      );
 
-    return objResult;
+      return objResult.slice(1, 24);
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
+  return {
+    create() {
+      return { get24HoursForecast };
+    },
   };
 })();
 

@@ -7,20 +7,20 @@ const WeatherLocation_DA = (function () {
       objWeatherAPI.sys.country,
       Number(objWeatherAPI.coord.lat),
       Number(objWeatherAPI.coord.lon),
-      new Date(
+      new Date( //.toUTCString()
         (Number(objWeatherAPI.dt) + Number(objWeatherAPI.timezone)) * 1000
       ),
       strUnits,
       Number(objWeatherAPI.main.temp),
-      objWeatherAPI.weather.id,
-      objWeatherAPI.weather.description,
+      objWeatherAPI.weather[0].id,
+      objWeatherAPI.weather[0].description,
       Number(objWeatherAPI.main.temp_max),
       Number(objWeatherAPI.main.temp_min),
       Number(objWeatherAPI.main.feels_like),
       Number(objWeatherAPI.main.humidity),
-      Number(objWeatherAPI.rain["1h"]),
+      objWeatherAPI.rain ? Number(objWeatherAPI.rain["1h"]) ?? 0 : 0,
       Number(objWeatherAPI.wind.speed),
-      objWeatherAPI.weather.icon
+      objWeatherAPI.weather[0].icon
     );
 
     return objWeatherLocation;

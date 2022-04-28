@@ -30,6 +30,12 @@ const DailyWeather = (function () {
     getMinTemp() {
       return this.dblForecastTemp;
     },
+    getSunrise() {
+      return this.dtSunrise;
+    },
+    getSunset() {
+      return this.dtSunset;
+    },
   };
 
   /**
@@ -44,6 +50,8 @@ const DailyWeather = (function () {
    * @param {number} dblMinTemp
    * @param {string} strIconId
    * @param {string} strUnits
+   * @param {Date} dtSunrise
+   * @param {Date} dtSunset
    * @returns {{
    * getSummaryId: function(): number,
    * getSummaryName: function(): string,
@@ -54,7 +62,9 @@ const DailyWeather = (function () {
    * getMinTemp: function(): number,
    * getLatitude: function(): number,
    * getLongitude: function(): number,
-   * getUnits: function(): number
+   * getUnits: function(): number,
+   * getSunrise: function(): Date,
+   * getSunset: function(): Date
    * }}
    */
   const shapeDailyWeather = function (
@@ -67,7 +77,9 @@ const DailyWeather = (function () {
     dblMinTemp,
     dblMaxTemp,
     dblLatitude,
-    dblLongitude
+    dblLongitude,
+    dtSunrise,
+    dtSunset
   ) {
     const objHW = Object.create(dailyWeatherActions);
 
@@ -81,6 +93,8 @@ const DailyWeather = (function () {
     objHW.strSummaryName = strSummaryName;
     objHW.dtDate = dtDate;
     objHW.dblForecastTemp = dblForecastTemp;
+    objHW.dtSunrise = dtSunrise;
+    objHW.dtSunset = dtSunset;
 
     return {
       getUnits: objHW.getUnits.bind(objHW),
@@ -93,6 +107,8 @@ const DailyWeather = (function () {
       getForecastTemp: objHW.getForecastTemp.bind(objHW),
       getMaxTemp: objHW.getMaxTemp.bind(objHW),
       getMinTemp: objHW.getMinTemp.bind(objHW),
+      getSunrise: objHW.getSunrise.bind(objHW),
+      getSunset: objHW.getSunset.bind(objHW),
     };
   };
 
