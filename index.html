@@ -6,19 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App</title>
   </head>
-  <body>
+  <body class="py-3 px-3">
     <header class="flex items-center">
       <div class="flex-1">
         <p id="p-location-title">Magdalena del Mar, Peru</p>
         <div id="div-searchbox" class="relative hidden">
           <input
-            class="peer shadow-inner h-5 w-full rounded-[10px] pl-3"
+            class="peer shadow-inner h-5 w-full rounded-[10px] pl-3 relative"
             type="search"
             name="input-search-location"
             id="input-search-location"
             autocomplete="off"
             list="search-current"
           />
+          <span
+            id="span-search-enter"
+            class="absolute hidden top-[4px] left-[54px] text-red-500 text-[0.6rem] peer-focus:inline"
+            >ENTER</span
+          >
+          <datalist id="search-current">
+            <option value="◎ Calculate current location"></option>
+          </datalist>
+          <!-- <span
+            class="span-input-enter relative before:absolute peer-focus:before:content-['XYZ'] before:top-[4px] before:left-[-47px] after:absolute after:text-[0.6rem] peer-focus:after:content-['ENTER'] after:whitespace-pre-wrap after:top-[-4px] after:left-[-50px] after:text-slate-400"
+          ></span> -->
+
           <button
             class="absolute top-0 right-[10px]"
             type="button"
@@ -32,79 +44,274 @@
               ></path>
             </svg>
           </button>
-
-          <!-- <span
-            class="span-input-enter relative before:absolute peer-focus:before:content-['XYZ'] before:top-[4px] before:left-[-47px] after:absolute after:text-[0.6rem] peer-focus:after:content-['ENTER'] after:whitespace-pre-wrap after:top-[-4px] after:left-[-50px] after:text-slate-400"
-          ></span> -->
-          <datalist id="search-current">
-            <option value="◎ Current location"></option>
-          </datalist>
         </div>
       </div>
       <div class="flex justify-center">
         <button type="button" id="button-search-open">Search</button>
-        <button type="button" id="button-change-metrics">C</button>
+        <button type="button" id="button-change-metrics">C°</button>
       </div>
     </header>
     <main>
-      <div class="tabs">
-        <input type="radio" id="radio-1" name="tabs" checked />
-        <label class="tab" for="radio-1">Today</label>
-        <input type="radio" id="radio-2" name="tabs" />
-        <label class="tab" for="radio-2">7 Day Forecast</label>
+      <div class="tabs flex sdfsdf relative bg-white p-3 rounded-full">
+        <input type="radio" id="radio-1" name="tabs" checked class="z-10" />
+        <label class="tab z-10" for="radio-1">Today</label>
+        <input type="radio" id="radio-2" name="tabs" class="z-10" />
+        <label class="tab z-10" for="radio-2">7 Day Forecast</label>
         <span class="glider"></span>
       </div>
-      <div id="div-today-content">
+      <div id="div-tab-content-radio-1">
         <div>
           <p id="p-fetched-time"></p>
-          <div class="grid grid-cols-2 grid-rows-[1fr_auto_auto]">
+          <div
+            class="grid grid-cols-2 grid-rows-[1fr_auto_auto] justify-items-center"
+          >
             <div class="flex flex-col justify-center items-center">
-              <p id="p-today-temperature">20C</p>
-              <div class="flex justify-center items-center">
+              <p
+                id="p-today-temperature"
+                class="text-6xl font-extrabold flex-1 flex items-center justify-center"
+              >
+                20C°
+              </p>
+              <div class="flex justify-center items-center gap-8">
                 <div>
-                  <div>
-                    <img src="" alt="" id="img-today-min-temp" />
-                    <p id="p-today-min-temp"></p>
+                  <div class="flex justify-center items-center">
+                    <img
+                      src=""
+                      alt=""
+                      id="img-today-min-temp"
+                      class="h-6 w-auto"
+                    />
+                    <p id="p-today-min-temp" class="text-sm">18C°</p>
                   </div>
                 </div>
                 <div>
-                  <div>
-                    <img src="" alt="" id="img-today-max-temp" />
-                    <p id="p-today-max-temp"></p>
+                  <div class="flex justify-center items-center">
+                    <p id="p-today-max-temp" class="text-sm">21C°</p>
+                    <img
+                      src=""
+                      alt=""
+                      id="img-today-max-temp"
+                      class="h-6 w-auto"
+                    />
                   </div>
                 </div>
               </div>
             </div>
             <div class="flex flex-col justify-center items-center">
-              <img src="" alt="" id="img-today-summary-image" />
-              <p id="p-today-summary-description"></p>
+              <!-- <img
+                src="../src/images/weather-conditions/04d.svg"
+                alt=""
+                id="img-today-summary-image"
+                class="w-32"
+              /> -->
+              <div class="h-auto w-20">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  viewBox="0 0 64 64"
+                >
+                  <defs>
+                    <linearGradient
+                      id="b"
+                      x1="13.58"
+                      x2="24.15"
+                      y1="15.57"
+                      y2="33.87"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop offset="0" stop-color="#86c3db" />
+                      <stop offset=".45" stop-color="#86c3db" />
+                      <stop offset="1" stop-color="#5eafcf" />
+                      <animateTransform
+                        attributeName="gradientTransform"
+                        dur="10s"
+                        repeatCount="indefinite"
+                        type="rotate"
+                        values="10 19.22 24.293; -10 19.22 24.293; 10 19.22 24.293"
+                      />
+                    </linearGradient>
+                    <linearGradient
+                      id="c"
+                      x1="22.56"
+                      x2="39.2"
+                      y1="21.96"
+                      y2="50.8"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop offset="0" stop-color="#f3f7fe" />
+                      <stop offset=".45" stop-color="#f3f7fe" />
+                      <stop offset="1" stop-color="#deeafb" />
+                    </linearGradient>
+                    <linearGradient
+                      id="a"
+                      x1="22.53"
+                      x2="25.47"
+                      y1="42.95"
+                      y2="48.05"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop offset="0" stop-color="#4286ee" />
+                      <stop offset=".45" stop-color="#4286ee" />
+                      <stop offset="1" stop-color="#0950bc" />
+                    </linearGradient>
+                    <linearGradient
+                      id="d"
+                      x1="29.53"
+                      x2="32.47"
+                      y1="42.95"
+                      y2="48.05"
+                      xlink:href="#a"
+                    />
+                    <linearGradient
+                      id="e"
+                      x1="36.53"
+                      x2="39.47"
+                      y1="42.95"
+                      y2="48.05"
+                      xlink:href="#a"
+                    />
+                  </defs>
+                  <path
+                    fill="url(#b)"
+                    stroke="#72b9d5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width=".5"
+                    d="M29.33 26.68a10.61 10.61 0 01-10.68-10.54A10.5 10.5 0 0119 13.5a10.54 10.54 0 1011.5 13.11 11.48 11.48 0 01-1.17.07z"
+                  >
+                    <animateTransform
+                      attributeName="transform"
+                      dur="10s"
+                      repeatCount="indefinite"
+                      type="rotate"
+                      values="-10 19.22 24.293; 10 19.22 24.293; -10 19.22 24.293"
+                    />
+                  </path>
+                  <path
+                    fill="url(#c)"
+                    stroke="#e6effc"
+                    stroke-miterlimit="10"
+                    stroke-width=".5"
+                    d="M46.5 31.5h-.32a10.49 10.49 0 00-19.11-8 7 7 0 00-10.57 6 7.21 7.21 0 00.1 1.14A7.5 7.5 0 0018 45.5a4.19 4.19 0 00.5 0v0h28a7 7 0 000-14z"
+                  />
+                  <path
+                    fill="none"
+                    stroke="url(#a)"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    stroke-width="2"
+                    d="M24.39 43.03l-.78 4.94"
+                  >
+                    <animateTransform
+                      attributeName="transform"
+                      dur="0.7s"
+                      repeatCount="indefinite"
+                      type="translate"
+                      values="1 -5; -2 10"
+                    />
+                    <animate
+                      attributeName="opacity"
+                      dur="0.7s"
+                      repeatCount="indefinite"
+                      values="0;1;1;0"
+                    />
+                  </path>
+                  <path
+                    fill="none"
+                    stroke="url(#d)"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    stroke-width="2"
+                    d="M31.39 43.03l-.78 4.94"
+                  >
+                    <animateTransform
+                      attributeName="transform"
+                      begin="-0.4s"
+                      dur="0.7s"
+                      repeatCount="indefinite"
+                      type="translate"
+                      values="1 -5; -2 10"
+                    />
+                    <animate
+                      attributeName="opacity"
+                      begin="-0.4s"
+                      dur="0.7s"
+                      repeatCount="indefinite"
+                      values="0;1;1;0"
+                    />
+                  </path>
+                  <path
+                    fill="none"
+                    stroke="url(#e)"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    stroke-width="2"
+                    d="M38.39 43.03l-.78 4.94"
+                  >
+                    <animateTransform
+                      attributeName="transform"
+                      begin="-0.2s"
+                      dur="0.7s"
+                      repeatCount="indefinite"
+                      type="translate"
+                      values="1 -5; -2 10"
+                    />
+                    <animate
+                      attributeName="opacity"
+                      begin="-0.2s"
+                      dur="0.7s"
+                      repeatCount="indefinite"
+                      values="0;1;1;0"
+                    />
+                  </path>
+                </svg>
+              </div>
+              <p id="p-today-summary-description" class="text-base font-bold">
+                Scattered Clouds
+              </p>
             </div>
             <div class="div-widged-container">
               <img src="" alt="" id="img-today-feelslike" />
               <div class="div-widget-container-main">
-                <p id="p-today-feelslike-tittle"></p>
-                <p id="p-today-feelslike-temperature"></p>
+                <p id="p-today-feelslike-tittle" class="p-wigdet-title">
+                  Feels Like
+                </p>
+                <p id="p-today-feelslike-temperature" class="p-widget-data">
+                  19C°
+                </p>
               </div>
             </div>
             <div class="div-widged-container">
               <img src="" alt="" id="img-today-humidity" />
               <div class="div-widget-container-main">
-                <p id="p-today-humidity-tittle"></p>
-                <p id="p-today-humidity-temperature"></p>
+                <p id="p-today-humidity-tittle" class="p-wigdet-title">
+                  Humidity
+                </p>
+                <p id="p-today-humidity-temperature" class="p-widget-data">
+                  80%
+                </p>
               </div>
             </div>
             <div class="div-widged-container">
               <img src="" alt="" id="img-today-chanceofrain" />
               <div class="div-widget-container-main">
-                <p id="p-today-chanceofrain-tittle"></p>
-                <p id="p-today-chanceofrain-temperature"></p>
+                <p id="p-today-chanceofrain-tittle" class="p-wigdet-title">
+                  Chance of Rain
+                </p>
+                <p id="p-today-chanceofrain-temperature" class="p-widget-data">
+                  13%
+                </p>
               </div>
             </div>
             <div class="div-widged-container">
               <img src="" alt="" id="img-today-windspeed" />
               <div class="div-widget-container-main">
-                <p id="p-today-windspeed-tittle"></p>
-                <p id="p-today-windspeed-temperature"></p>
+                <p id="p-today-windspeed-tittle" class="p-wigdet-title">
+                  Wind Speed
+                </p>
+                <p id="p-today-windspeed-temperature" class="p-widget-data">
+                  2m/s
+                </p>
               </div>
             </div>
           </div>
@@ -122,7 +329,7 @@
           </ul>
         </div>
       </div>
-      <div id="div-7dayforecast-content" class="hidden">
+      <div id="div-tab-content-radio-2" class="hidden">
         <div class="flex justify-end">
           <img id="img-7df-header-sunrise-image" src="" alt="" />
           <img id="img-7df-header-sunset-image" src="" alt="" />
