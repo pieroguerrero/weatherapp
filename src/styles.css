@@ -3,8 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --primary-color: #185ee0;
-  --secondary-color: #e6eef9;
+  /* --primary-color: #185ee0; */
+  --primary-color: #ffffff;
+  --secondary-color: #000000;
+  --clear-color: #ffffff;
+  --dark-color: #000000;
 }
 
 .tabs {

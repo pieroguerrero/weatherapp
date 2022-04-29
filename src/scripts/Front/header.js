@@ -1,8 +1,10 @@
 import { currentWeather_BL } from "../Back/BL/currentWeather_BL";
+import { mainCurrent } from "./mainCurrent";
 
 const header = (function () {
   const header = document.querySelector("header");
   const spanEnterIndicator = header.querySelector("#span-search-enter");
+
   let mainUnits, mainLatitude, mainLongitude;
 
   const widths = [
@@ -63,6 +65,30 @@ const header = (function () {
     btnChangeMetrics.onclick = changeMetrics.bind(btnChangeMetrics);
   };
 
+  const renderButtons = function () {
+    const btnSearchOpen = header.querySelector("#button-search-open");
+    const svgSearchPath = btnSearchOpen.children[0].children[0];
+
+    svgSearchPath.setAttribute(
+      "fill",
+      currentWeather_BL.isDay()
+        ? currentWeather_BL.COLORS.Clear()
+        : currentWeather_BL.COLORS.Dar()
+    );
+    btnSearchOpen.style.backgroundColor = currentWeather_BL.isDay()
+      ? currentWeather_BL.COLORS.Dark()
+      : currentWeather_BL.COLORS.Clear();
+
+    const btnChangeMetrics = header.querySelector("#button-change-metrics");
+    btnChangeMetrics.style.color = currentWeather_BL.isDay()
+      ? currentWeather_BL.COLORS.Clear()
+      : currentWeather_BL.COLORS.Dark();
+
+    btnChangeMetrics.style.backgroundColor = currentWeather_BL.isDay()
+      ? currentWeather_BL.COLORS.Dark()
+      : currentWeather_BL.COLORS.Clear();
+  };
+
   /**
    *
    * @param {{getIconId(): string;
@@ -84,11 +110,17 @@ const header = (function () {
    */
   const renderCurrentWeather = function (objCurrentWeather) {
     onCloseSearchBox();
+
     const pLocationTitle = header.querySelector("#p-location-title");
     pLocationTitle.textContent =
       objCurrentWeather.getCity() + ", " + objCurrentWeather.getCountry();
+    pLocationTitle.style.color = currentWeather_BL.isDay()
+      ? currentWeather_BL.COLORS.Dark()
+      : currentWeather_BL.COLORS.Clear();
 
+    renderButtons();
     //TODO: render the main part to show the weather
+    mainCurrent.loadData(objCurrentWeather);
   };
 
   const getWeatherContentByGeolocation = function (dblLat, dblLong, strUnits) {

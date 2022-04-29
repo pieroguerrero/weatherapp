@@ -6,13 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App</title>
   </head>
-  <body class="py-3 px-3">
-    <header class="flex items-center">
+  <body class="pt-5 px-3">
+    <header class="flex items-center gap-2">
       <div class="flex-1">
-        <p id="p-location-title">Magdalena del Mar, Peru</p>
+        <p
+          id="p-location-title"
+          class="text-lg font-bold text-center capitalize"
+        >
+          magdalena del mar, Peru
+        </p>
         <div id="div-searchbox" class="relative hidden">
           <input
-            class="peer shadow-inner h-5 w-full rounded-[10px] pl-3 relative"
+            class="peer shadow-inner h-9 text-base w-full rounded-[10px] pl-3 border-2 border-slate-400 border-solid appearance-none relative"
             type="search"
             name="input-search-location"
             id="input-search-location"
@@ -21,22 +26,32 @@
           />
           <span
             id="span-search-enter"
-            class="absolute hidden top-[4px] left-[54px] text-red-500 text-[0.6rem] peer-focus:inline"
-            >ENTER</span
+            class="absolute hidden top-[6px] left-[54px] text-slate-500 text-[0.4rem] peer-focus:inline"
           >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 0 24 24"
+              width="24px"
+              fill="#000000"
+            >
+              <path d="M0 0h24v24H0V0z" fill="none" />
+              <path
+                fill="rgb(148 163 184 / 1)"
+                d="M19 7v4H5.83l3.58-3.59L8 6l-6 6 6 6 1.41-1.41L5.83 13H21V7h-2z"
+              />
+            </svg>
+          </span>
           <datalist id="search-current">
             <option value="◎ Calculate current location"></option>
           </datalist>
-          <!-- <span
-            class="span-input-enter relative before:absolute peer-focus:before:content-['XYZ'] before:top-[4px] before:left-[-47px] after:absolute after:text-[0.6rem] peer-focus:after:content-['ENTER'] after:whitespace-pre-wrap after:top-[-4px] after:left-[-50px] after:text-slate-400"
-          ></span> -->
 
           <button
-            class="absolute top-0 right-[10px]"
+            class="absolute top-[5px] right-[20px]"
             type="button"
             id="button-header-search-close"
           >
-            <svg viewBox="0 0 24 24" width="24" height="24" class="p-1">
+            <svg viewBox="0 0 24 24" width="24" height="24">
               <path
                 fill="#000000"
                 fill-rule="nonzero"
@@ -46,26 +61,51 @@
           </button>
         </div>
       </div>
-      <div class="flex justify-center">
-        <button type="button" id="button-search-open">Search</button>
-        <button type="button" id="button-change-metrics">C°</button>
+      <div class="flex justify-center gap-4">
+        <button
+          type="button"
+          id="button-search-open"
+          class="rounded-full bg-black p-1"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            aria-hidden="true"
+          >
+            <path
+              d="M10.5 3a7.5 7.5 0 015.645 12.438l4.709 4.708a.502.502 0 01-.708.708l-4.708-4.709A7.5 7.5 0 1110.5 3zm0 1a6.5 6.5 0 100 13 6.5 6.5 0 000-13z"
+              fill="#ffffff"
+            ></path>
+          </svg>
+        </button>
+        <button
+          type="button"
+          id="button-change-metrics"
+          class="flex justify-center items-center rounded-full h-8 w-8 font-light text-2xl bg-black text-white"
+        >
+          C°
+        </button>
       </div>
     </header>
-    <main>
-      <div class="tabs flex sdfsdf relative bg-white p-3 rounded-full">
-        <input type="radio" id="radio-1" name="tabs" checked class="z-10" />
-        <label class="tab z-10" for="radio-1">Today</label>
-        <input type="radio" id="radio-2" name="tabs" class="z-10" />
-        <label class="tab z-10" for="radio-2">7 Day Forecast</label>
-        <span class="glider"></span>
+    <main class="mt-4">
+      <div class="flex justify-center items-center mb-4">
+        <div class="tabs flex relative bg-white p-3 rounded-full">
+          <input type="radio" id="radio-1" name="tabs" checked class="z-10" />
+          <label class="tab z-10" for="radio-1">Now</label>
+          <input type="radio" id="radio-2" name="tabs" class="z-10" />
+          <label class="tab z-10" for="radio-2">7 Day Forecast</label>
+          <span class="glider"></span>
+        </div>
       </div>
-      <div id="div-tab-content-radio-1">
-        <div>
-          <p id="p-fetched-time"></p>
+
+      <div id="div-tab-content-radio-1" class="flex flex-col gap-8">
+        <div class="flex flex-col gap-4">
+          <p id="p-fetched-time" class="text-center">Friday Apr 29, 1:06pm</p>
           <div
-            class="grid grid-cols-2 grid-rows-[1fr_auto_auto] justify-items-center"
+            class="grid grid-cols-2 grid-rows-[1fr_auto_auto] gap-x-4 gap-y-4"
           >
-            <div class="flex flex-col justify-center items-center">
+            <div class="flex flex-col justify-center items-center mb-2">
               <p
                 id="p-today-temperature"
                 class="text-6xl font-extrabold flex-1 flex items-center justify-center"
@@ -97,7 +137,7 @@
                 </div>
               </div>
             </div>
-            <div class="flex flex-col justify-center items-center">
+            <div class="flex flex-col justify-center items-center mb-2">
               <!-- <img
                 src="../src/images/weather-conditions/04d.svg"
                 alt=""
@@ -295,7 +335,10 @@
             <div class="div-widged-container">
               <img src="" alt="" id="img-today-chanceofrain" />
               <div class="div-widget-container-main">
-                <p id="p-today-chanceofrain-tittle" class="p-wigdet-title">
+                <p
+                  id="p-today-chanceofrain-tittle"
+                  class="p-wigdet-title whitespace-nowrap"
+                >
                   Chance of Rain
                 </p>
                 <p id="p-today-chanceofrain-temperature" class="p-widget-data">
@@ -317,10 +360,10 @@
           </div>
         </div>
         <div>
-          <h2>24 Hours Forecast</h2>
-          <ul class="flex flex-col">
+          <h2 class="text-lg font-bold text-center">24 Hours Forecast</h2>
+          <ul class="flex items-center gap-4 overflow-x-visible">
             <template id="tmp-24hf-list">
-              <li class="flex justify-center">
+              <li class="flex flex-col justify-center items gap-2">
                 <p class="p-24hf-item-tomorrow"></p>
                 <p class="p-24hf-item-temperature"></p>
                 <img id="img-24hf-item-weather-image" src="" alt="" />

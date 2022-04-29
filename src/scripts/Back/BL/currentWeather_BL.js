@@ -1,6 +1,13 @@
 import { WeatherLocation_DA } from "../DA/WeatherLocation_DA";
 
 const currentWeather_BL = (function () {
+  const strVarColorDark = getComputedStyle(
+    document.documentElement
+  ).getPropertyValue("--dark-color");
+  const strVarColorClear = getComputedStyle(
+    document.documentElement
+  ).getPropertyValue("--clear-color");
+
   /**
    *
    * @param {number} intLatitude
@@ -33,6 +40,14 @@ const currentWeather_BL = (function () {
     return objResult;
   };
 
+  /**
+   *
+   * @returns {boolean}
+   */
+  const isDay = function () {
+    return true;
+  };
+
   return {
     create() {
       return { getByGeoLocation, getByCityName };
@@ -45,6 +60,15 @@ const currentWeather_BL = (function () {
         metric: "C°",
         imperial: "F°",
         standard: "K°",
+      },
+    },
+    isDay,
+    COLORS: {
+      Clear() {
+        return strVarColorClear;
+      },
+      Dark() {
+        return strVarColorDark;
       },
     },
   };
