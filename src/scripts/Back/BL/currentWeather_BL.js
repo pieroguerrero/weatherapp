@@ -1,11 +1,6 @@
 import { WeatherLocation_DA } from "../DA/WeatherLocation_DA";
 
 const currentWeather_BL = (function () {
-  const UNITS = {
-    Celsius: "metric",
-    Fahrenheit: "imperial",
-    Kelvin: "standard",
-  };
   /**
    *
    * @param {number} intLatitude
@@ -40,7 +35,17 @@ const currentWeather_BL = (function () {
 
   return {
     create() {
-      return { getByGeoLocation, getByCityName, UNITS };
+      return { getByGeoLocation, getByCityName };
+    },
+    UNITS: {
+      Celsius: "metric",
+      Fahrenheit: "imperial",
+      Kelvin: "standard",
+      SYMBOLS: {
+        metric: "C°",
+        imperial: "F°",
+        standard: "K°",
+      },
     },
   };
 })();
