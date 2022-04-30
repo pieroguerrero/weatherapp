@@ -39,6 +39,10 @@ const header = (function () {
     this.classList.add("hidden");
     header.querySelector("#p-location-title").classList.add("hidden");
     header.querySelector("#div-searchbox").classList.remove("hidden");
+
+    //test
+    //const root = document.getElementsByTagName("html")[0]; // '0' to assign the first (and only `HTML` tag)
+    //root.classList.add("dark");
   };
 
   const changeMetrics = function () {
@@ -66,27 +70,24 @@ const header = (function () {
   };
 
   const renderButtons = function () {
-    const btnSearchOpen = header.querySelector("#button-search-open");
-    const svgSearchPath = btnSearchOpen.children[0].children[0];
-
-    svgSearchPath.setAttribute(
-      "fill",
-      currentWeather_BL.isDay()
-        ? currentWeather_BL.COLORS.Clear()
-        : currentWeather_BL.COLORS.Dar()
-    );
-    btnSearchOpen.style.backgroundColor = currentWeather_BL.isDay()
-      ? currentWeather_BL.COLORS.Dark()
-      : currentWeather_BL.COLORS.Clear();
-
-    const btnChangeMetrics = header.querySelector("#button-change-metrics");
-    btnChangeMetrics.style.color = currentWeather_BL.isDay()
-      ? currentWeather_BL.COLORS.Clear()
-      : currentWeather_BL.COLORS.Dark();
-
-    btnChangeMetrics.style.backgroundColor = currentWeather_BL.isDay()
-      ? currentWeather_BL.COLORS.Dark()
-      : currentWeather_BL.COLORS.Clear();
+    //const btnSearchOpen = header.querySelector("#button-search-open");
+    //const svgSearchPath = btnSearchOpen.children[0].children[0];
+    // svgSearchPath.setAttribute(
+    //   "fill",
+    //   currentWeather_BL.isDay()
+    //     ? currentWeather_BL.COLORS.Clear()
+    //     : currentWeather_BL.COLORS.Dar()
+    // );
+    // btnSearchOpen.style.backgroundColor = currentWeather_BL.isDay()
+    //   ? currentWeather_BL.COLORS.Dark()
+    //   : currentWeather_BL.COLORS.Clear();
+    // const btnChangeMetrics = header.querySelector("#button-change-metrics");
+    // btnChangeMetrics.style.color = currentWeather_BL.isDay()
+    //   ? currentWeather_BL.COLORS.Clear()
+    //   : currentWeather_BL.COLORS.Dark();
+    // btnChangeMetrics.style.backgroundColor = currentWeather_BL.isDay()
+    //   ? currentWeather_BL.COLORS.Dark()
+    //   : currentWeather_BL.COLORS.Clear();
   };
 
   /**
@@ -215,6 +216,7 @@ const header = (function () {
 
   return {
     onPageLoad() {
+      mainUnits = currentWeather_BL.UNITS.Celsius;
       loadEvents();
     },
     initialLoad(dblLatitude, dblLongitude) {

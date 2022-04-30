@@ -11,7 +11,7 @@
       <div class="flex-1">
         <p
           id="p-location-title"
-          class="text-lg font-bold text-center capitalize"
+          class="text-lg font-bold text-center capitalize dark:text-white"
         >
           magdalena del mar, Peru
         </p>
@@ -65,7 +65,7 @@
         <button
           type="button"
           id="button-search-open"
-          class="rounded-full bg-black p-1"
+          class="rounded-full bg-black p-1 text-white dark:bg-white dark:text-black"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -75,21 +75,21 @@
           >
             <path
               d="M10.5 3a7.5 7.5 0 015.645 12.438l4.709 4.708a.502.502 0 01-.708.708l-4.708-4.709A7.5 7.5 0 1110.5 3zm0 1a6.5 6.5 0 100 13 6.5 6.5 0 000-13z"
-              fill="#ffffff"
+              fill="currentColor"
             ></path>
           </svg>
         </button>
         <button
           type="button"
           id="button-change-metrics"
-          class="flex justify-center items-center rounded-full h-8 w-8 font-light text-2xl bg-black text-white"
+          class="flex justify-center items-center rounded-full h-8 w-8 font-light text-2xl bg-black text-white dark:bg-white dark:text-black"
         >
           C°
         </button>
       </div>
     </header>
     <main class="mt-4">
-      <div class="flex justify-center items-center mb-4">
+      <div class="flex justify-center items-center mb-1">
         <div class="tabs flex relative bg-white p-3 rounded-full">
           <input type="radio" id="radio-1" name="tabs" checked class="z-10" />
           <label class="tab z-10" for="radio-1">Now</label>
@@ -101,14 +101,16 @@
 
       <div id="div-tab-content-radio-1" class="flex flex-col gap-8">
         <div class="flex flex-col gap-4">
-          <p id="p-fetched-time" class="text-center">Friday Apr 29, 1:06pm</p>
+          <p id="p-fetched-time" class="text-center dark:text-white">
+            Friday Apr 29, 1:06pm
+          </p>
           <div
             class="grid grid-cols-2 grid-rows-[1fr_auto_auto] gap-x-4 gap-y-4"
           >
             <div class="flex flex-col justify-center items-center mb-2">
               <p
                 id="p-today-temperature"
-                class="text-6xl font-extrabold flex-1 flex items-center justify-center"
+                class="text-6xl font-extrabold flex-1 flex items-center justify-center dark:text-white"
               >
                 20C°
               </p>
@@ -121,12 +123,16 @@
                       id="img-today-min-temp"
                       class="h-6 w-auto"
                     />
-                    <p id="p-today-min-temp" class="text-sm">18C°</p>
+                    <p id="p-today-min-temp" class="text-sm dark:text-white">
+                      18C°
+                    </p>
                   </div>
                 </div>
                 <div>
                   <div class="flex justify-center items-center">
-                    <p id="p-today-max-temp" class="text-sm">21C°</p>
+                    <p id="p-today-max-temp" class="text-sm dark:text-white">
+                      21C°
+                    </p>
                     <img
                       src=""
                       alt=""
@@ -138,14 +144,14 @@
               </div>
             </div>
             <div class="flex flex-col justify-center items-center mb-2">
-              <!-- <img
-                src="../src/images/weather-conditions/04d.svg"
-                alt=""
-                id="img-today-summary-image"
-                class="w-32"
-              /> -->
               <div class="h-auto w-20">
-                <svg
+                <img
+                  src="../src/images/weather-conditions/04d.svg"
+                  alt=""
+                  id="img-today-summary-image"
+                  class="w-32"
+                />
+                <!-- <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlns:xlink="http://www.w3.org/1999/xlink"
                   viewBox="0 0 64 64"
@@ -304,9 +310,12 @@
                       values="0;1;1;0"
                     />
                   </path>
-                </svg>
+                </svg> -->
               </div>
-              <p id="p-today-summary-description" class="text-base font-bold">
+              <p
+                id="p-today-summary-description"
+                class="text-base font-bold dark:text-white"
+              >
                 Scattered Clouds
               </p>
             </div>
@@ -360,12 +369,14 @@
           </div>
         </div>
         <div>
-          <h2 class="text-lg font-bold text-center">24 Hours Forecast</h2>
+          <h2 class="text-lg font-bold text-center dark:text-white">
+            24 Hours Forecast
+          </h2>
           <ul class="flex items-center gap-4 overflow-x-visible">
             <template id="tmp-24hf-list">
               <li class="flex flex-col justify-center items gap-2">
-                <p class="p-24hf-item-tomorrow"></p>
-                <p class="p-24hf-item-temperature"></p>
+                <p class="p-24hf-item-tomorrow dark:text-white"></p>
+                <p class="p-24hf-item-temperature dark:text-white"></p>
                 <img id="img-24hf-item-weather-image" src="" alt="" />
               </li>
             </template>
