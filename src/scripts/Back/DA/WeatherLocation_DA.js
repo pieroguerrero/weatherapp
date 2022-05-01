@@ -20,7 +20,15 @@ const WeatherLocation_DA = (function () {
       Number(objWeatherAPI.main.humidity),
       objWeatherAPI.rain ? Number(objWeatherAPI.rain["1h"]) ?? 0 : 0,
       Number(objWeatherAPI.wind.speed),
-      objWeatherAPI.weather[0].icon
+      objWeatherAPI.weather[0].icon,
+      new Date( //.toUTCString()
+        (Number(objWeatherAPI.sys.sunrise) + Number(objWeatherAPI.timezone)) *
+          1000
+      ),
+      new Date( //.toUTCString()
+        (Number(objWeatherAPI.sys.sunset) + Number(objWeatherAPI.timezone)) *
+          1000
+      )
     );
 
     return objWeatherLocation;

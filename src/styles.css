@@ -101,7 +101,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .div-widget-container-main {
-  @apply flex-1 flex flex-col items-start justify-center;
+  @apply flex-1 sm:flex-initial flex flex-col items-start justify-center;
 }
 
 .div-widged-container img {

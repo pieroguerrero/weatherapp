@@ -25,10 +25,10 @@ const DailyWeather = (function () {
       return this.strUnits;
     },
     getMaxTemp() {
-      return this.dblForecastTemp;
+      return this.dblMaxTemp;
     },
     getMinTemp() {
-      return this.dblForecastTemp;
+      return this.dblMinTemp;
     },
     getSunrise() {
       return this.dtSunrise;

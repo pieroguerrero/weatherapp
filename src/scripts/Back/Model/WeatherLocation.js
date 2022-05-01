@@ -17,6 +17,8 @@ const WeatherLocation = (function () {
    * @param {number} dblRainPerc
    * @param {number} dblWindSpeed
    * @param {string}strIconId
+   * @param {Date} dtSunrise
+   * @param {Date} dtSunset
    * @returns
    */
   const shapeWeatherLocation = function (
@@ -36,7 +38,9 @@ const WeatherLocation = (function () {
     dblHumidity,
     dblRainPerc,
     dblWindSpeed,
-    strIconId
+    strIconId,
+    dtSunrise,
+    dtSunset
   ) {
     const objWL = {
       //dblId: dblId,
@@ -56,6 +60,8 @@ const WeatherLocation = (function () {
       dblRainPerc: dblRainPerc,
       dblWindSpeed: dblWindSpeed,
       strIconId: strIconId,
+      dtSunrise: dtSunrise,
+      dtSunset: dtSunset,
     };
 
     return {
@@ -106,6 +112,12 @@ const WeatherLocation = (function () {
       },
       getWindSpeed() {
         return objWL.dblWindSpeed;
+      },
+      getSunrise() {
+        return objWL.dtSunrise;
+      },
+      getSunset() {
+        return objWL.dtSunset;
       },
     };
   };

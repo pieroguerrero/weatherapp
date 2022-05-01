@@ -1,6 +1,7 @@
 import { BL_currentWeather } from "../Back/BL/BL_currentWeather";
 import { dailyWeather } from "./dailyWeather";
 import { mainCurrent } from "./mainCurrent";
+import svgDarkBg from "../../images/dark-bg.jpg";
 
 const header = (function () {
   const header = document.querySelector("header");
@@ -74,6 +75,25 @@ const header = (function () {
 
   /**
    *
+   * @param {Date} dtCurrentDate
+   * @param {Date} dtSunrise
+   * @param {Date} dtSunset
+   */
+  const setBackground = function (dtCurrentDate, dtSunrise, dtSunset) {
+    const root = document.getElementsByTagName("html")[0];
+
+    if (
+      dtCurrentDate.toISOString() < dtSunset.toISOString() &&
+      dtCurrentDate.toISOString() > dtSunrise.toISOString()
+    ) {
+      root.classList.remove("dark");
+    } else {
+      root.classList.add("dark");
+    }
+  };
+
+  /**
+   *
    * @param {{getIconId(): string;
    *getCity(): string,
    *getCountry(): string,
@@ -89,16 +109,34 @@ const header = (function () {
    * getFeelsLikeTemp(): number,
    * getHumidity(): number,
    * getRainPerc(): number,
-   *getWindSpeed(): number;}} objCurrentWeather
+   *getWindSpeed(): number,
+   * getSunrise(): Date,
+   * getSunset(): Date}} objCurrentWeather
    */
   const renderCurrentWeather = function (objCurrentWeather) {
     onCloseSearchBox();
+
+    const radio1 = document.getElementById("radio-1");
+    if (!radio1.checked) {
+      radio1.checked = true;
+      document
+        .getElementById("div-tab-content-radio-1")
+        .classList.remove("hidden");
+      document
+        .getElementById("div-tab-content-radio-2")
+        .classList.add("hidden");
+    }
 
     const pLocationTitle = header.querySelector("#p-location-title");
     pLocationTitle.textContent =
       objCurrentWeather.getCity() + ", " + objCurrentWeather.getCountry();
 
     //renderButtons();
+    setBackground(
+      objCurrentWeather.getDateTime(),
+      objCurrentWeather.getSunrise(),
+      objCurrentWeather.getSunset()
+    );
     mainCurrent.loadData(objCurrentWeather);
   };
 
@@ -129,6 +167,16 @@ const header = (function () {
 
         header.querySelector("#input-search-location").value = "";
         //shadeLoading.classList.add("hidden");
+      })
+      .catch(function (error) {
+        alert(
+          "We coudn't find the City you entered. Please try entering the name without special characters."
+        );
+
+        header.querySelector("#input-search-location").value = "";
+        shadeLoading.classList.add("hidden");
+
+        console.log(error);
       });
   };
 
@@ -214,6 +262,7 @@ const header = (function () {
   return {
     onPageLoad() {
       //mainUnits = BL_currentWeather.UNITS.Celsius;
+      //loadBackgrounds();
       loadEvents();
     },
     initialLoad(dblLatitude, dblLongitude) {

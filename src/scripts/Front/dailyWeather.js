@@ -3,10 +3,13 @@ import svgSunrise from "../../images/sunrise.svg";
 import svgSunset from "../../images/sunset.svg";
 import parseISO from "date-fns/parseISO";
 import format from "date-fns/format";
-import { BL_currentWeather } from "../Back/BL/BL_currentWeather";
+import svgMinTemp from "../../images/pressure-low.svg";
+import svgMaxTemp from "../../images/pressure-high.svg";
+import { BL_Helper } from "../Back/BL/BL_Helper";
 
 const dailyWeather = (function () {
   const divContetTab2 = document.getElementById("div-tab-content-radio-2");
+  const shadeLoading = document.getElementById("div-shade-loading");
   const tmpDailyForecastCopy = document.importNode(
     divContetTab2.querySelector("#tmp-7df-list"),
     true
@@ -50,23 +53,43 @@ const dailyWeather = (function () {
       );
 
       tmp7dfItem.querySelector(".p-7df-item-temperature").textContent =
-        objDayForecast.getForecastTemp().toFixed(0).toString() +
-        BL_currentWeather.UNITS.SYMBOLS[objDayForecast.getUnits()];
+        objDayForecast.getForecastTemp().toFixed(0).toString();
+      //+BL_currentWeather.UNITS.SYMBOLS[objDayForecast.getUnits()];
 
-      //   tmp24hFItem
-      //     .querySelector(".img-24hf-item-weather-image")
-      //     .setAttribute(
-      //       "src",
-      //       BL_Helper.WEATHER_CONDITIONS["str" + objHourForecast.getIconId()]
-      //     );
+      tmp7dfItem
+        .querySelector(".img-7df-temp-max")
+        .setAttribute("src", svgMaxTemp);
+      tmp7dfItem
+        .querySelector(".img-7df-temp-min")
+        .setAttribute("src", svgMinTemp);
 
-      //   const isoDate = parseISO(
-      //     objHourForecast.getTime().toISOString().slice(0, -1)
-      //   );
-      //   tmp24hFItem.querySelector(".p-24hf-item-time").textContent = format(
-      //     isoDate,
-      //     "h aaa"
-      //   );
+      tmp7dfItem.querySelector(".p-7df-item-temperature-max").textContent =
+        objDayForecast.getMaxTemp().toFixed(0).toString();
+      tmp7dfItem.querySelector(".p-7df-item-temperature-min").textContent =
+        objDayForecast.getMinTemp().toFixed(0).toString();
+
+      tmp7dfItem
+        .querySelector(".img-24hf-item-weather-image")
+        .setAttribute(
+          "src",
+          BL_Helper.WEATHER_CONDITIONS["str" + objDayForecast.getIconId()]
+        );
+
+      const isoSunriseDate = parseISO(
+        objDayForecast.getSunrise().toISOString().slice(0, -1)
+      );
+      tmp7dfItem.querySelector(".p-7df-item-sunrise").textContent = format(
+        isoSunriseDate,
+        "h:mm aaaaa"
+      );
+
+      const isoSunsetDate = parseISO(
+        objDayForecast.getSunset().toISOString().slice(0, -1)
+      );
+      tmp7dfItem.querySelector(".p-7df-item-sunset").textContent = format(
+        isoSunsetDate,
+        "h:mm aaaaa"
+      );
 
       fragment.appendChild(tmp7dfItem);
     });
@@ -90,11 +113,14 @@ const dailyWeather = (function () {
       loadImages();
     },
     loadData(dblLatitude, dblLongitude, strUnits) {
+      shadeLoading.classList.remove("hidden");
+
       const objBL_dailyWeather = BL_dailyWeather.create();
       objBL_dailyWeather
         .get7DaysForecast(dblLatitude, dblLongitude, strUnits)
         .then(function (response) {
           render7DayForecastData(response);
+          shadeLoading.classList.add("hidden");
         });
     },
   };
