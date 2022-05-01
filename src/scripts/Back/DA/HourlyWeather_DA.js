@@ -15,6 +15,7 @@ const HourlyWeather_DA = (function () {
    * getLatitude: function(): number,
    * getLongitude: function(): number,
    * getUnits: function(): number,
+   * getIconId: function(): string,
    * }[]}
    */
   const formatHourlyWeatherList = function (

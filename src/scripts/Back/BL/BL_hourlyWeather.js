@@ -1,6 +1,6 @@
 import { HourlyWeather_DA } from "../DA/HourlyWeather_DA";
 
-const hourlyWeather_BL = (function () {
+const BL_hourlyWeather = (function () {
   /**
    *
    * @param {number} intLatitude
@@ -21,7 +21,7 @@ const hourlyWeather_BL = (function () {
         strUnits
       );
 
-      return objResult.slice(1, 24);
+      return objResult.slice(1, 25);
     } catch (error) {
       console.log(error);
       return null;
@@ -35,4 +35,4 @@ const hourlyWeather_BL = (function () {
   };
 })();
 
-export { hourlyWeather_BL };
+export { BL_hourlyWeather };

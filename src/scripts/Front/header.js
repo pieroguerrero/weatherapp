@@ -1,9 +1,11 @@
-import { currentWeather_BL } from "../Back/BL/currentWeather_BL";
+import { BL_currentWeather } from "../Back/BL/BL_currentWeather";
+import { dailyWeather } from "./dailyWeather";
 import { mainCurrent } from "./mainCurrent";
 
 const header = (function () {
   const header = document.querySelector("header");
   const spanEnterIndicator = header.querySelector("#span-search-enter");
+  const shadeLoading = document.getElementById("div-shade-loading");
 
   let mainUnits, mainLatitude, mainLongitude;
 
@@ -39,6 +41,7 @@ const header = (function () {
     this.classList.add("hidden");
     header.querySelector("#p-location-title").classList.add("hidden");
     header.querySelector("#div-searchbox").classList.remove("hidden");
+    //header.querySelector("#input-search-location").focus();
 
     //test
     //const root = document.getElementsByTagName("html")[0]; // '0' to assign the first (and only `HTML` tag)
@@ -48,10 +51,10 @@ const header = (function () {
   const changeMetrics = function () {
     if (this.textContent.includes("C")) {
       this.textContent = "F°";
-      mainUnits = currentWeather_BL.UNITS.Fahrenheit;
+      mainUnits = BL_currentWeather.UNITS.Fahrenheit;
     } else {
       this.textContent = "C°";
-      mainUnits = currentWeather_BL.UNITS.Celsius;
+      mainUnits = BL_currentWeather.UNITS.Celsius;
     }
 
     getWeatherContentByGeolocation(
@@ -67,27 +70,6 @@ const header = (function () {
 
     const btnChangeMetrics = header.querySelector("#button-change-metrics");
     btnChangeMetrics.onclick = changeMetrics.bind(btnChangeMetrics);
-  };
-
-  const renderButtons = function () {
-    //const btnSearchOpen = header.querySelector("#button-search-open");
-    //const svgSearchPath = btnSearchOpen.children[0].children[0];
-    // svgSearchPath.setAttribute(
-    //   "fill",
-    //   currentWeather_BL.isDay()
-    //     ? currentWeather_BL.COLORS.Clear()
-    //     : currentWeather_BL.COLORS.Dar()
-    // );
-    // btnSearchOpen.style.backgroundColor = currentWeather_BL.isDay()
-    //   ? currentWeather_BL.COLORS.Dark()
-    //   : currentWeather_BL.COLORS.Clear();
-    // const btnChangeMetrics = header.querySelector("#button-change-metrics");
-    // btnChangeMetrics.style.color = currentWeather_BL.isDay()
-    //   ? currentWeather_BL.COLORS.Clear()
-    //   : currentWeather_BL.COLORS.Dark();
-    // btnChangeMetrics.style.backgroundColor = currentWeather_BL.isDay()
-    //   ? currentWeather_BL.COLORS.Dark()
-    //   : currentWeather_BL.COLORS.Clear();
   };
 
   /**
@@ -115,48 +97,48 @@ const header = (function () {
     const pLocationTitle = header.querySelector("#p-location-title");
     pLocationTitle.textContent =
       objCurrentWeather.getCity() + ", " + objCurrentWeather.getCountry();
-    pLocationTitle.style.color = currentWeather_BL.isDay()
-      ? currentWeather_BL.COLORS.Dark()
-      : currentWeather_BL.COLORS.Clear();
 
-    renderButtons();
-    //TODO: render the main part to show the weather
+    //renderButtons();
     mainCurrent.loadData(objCurrentWeather);
   };
 
   const getWeatherContentByGeolocation = function (dblLat, dblLong, strUnits) {
-    const objCurrentWeather_BL = currentWeather_BL.create();
+    shadeLoading.classList.remove("hidden");
+
+    const objCurrentWeather_BL = BL_currentWeather.create();
     objCurrentWeather_BL
       .getByGeoLocation(dblLat, dblLong, strUnits)
       .then(function (response) {
+        mainLatitude = response.getLatitude();
+        mainLongitude = response.getLongitude();
         renderCurrentWeather(response);
+        //shadeLoading.classList.add("hidden");
       });
   };
 
   const getWeatherContentByCityName = function (strCityName, strUnits) {
-    const objCurrentWeather_BL = currentWeather_BL.create();
+    shadeLoading.classList.remove("hidden");
+
+    const objCurrentWeather_BL = BL_currentWeather.create();
     objCurrentWeather_BL
       .getByCityName(strCityName, strUnits)
       .then(function (response) {
-        mainLatitude = response.getLatitude().toFixed(2);
-        mainLongitude = response.getLongitude().toFixed(2);
+        mainLatitude = response.getLatitude();
+        mainLongitude = response.getLongitude();
         renderCurrentWeather(response);
+
+        header.querySelector("#input-search-location").value = "";
+        //shadeLoading.classList.add("hidden");
       });
   };
 
   const onChangeInputSearch = function () {
-    if (this.value.includes("current location")) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        mainLatitude = position.coords.latitude.toFixed(2);
-        mainLongitude = position.coords.longitude.toFixed(2);
+    navigator.geolocation.getCurrentPosition(function (position) {
+      mainLatitude = position.coords.latitude;
+      mainLongitude = position.coords.longitude;
 
-        getWeatherContentByGeolocation(
-          Number(mainLatitude),
-          Number(mainLongitude),
-          mainUnits
-        );
-      });
-    }
+      getWeatherContentByGeolocation(mainLatitude, mainLongitude, mainUnits);
+    });
   };
 
   const onCloseSearchBox = function () {
@@ -176,8 +158,12 @@ const header = (function () {
 
   const loadSearchBox = function () {
     const btnSearchBox = header.querySelector("#input-search-location");
-    btnSearchBox.onchange = onChangeInputSearch.bind(btnSearchBox);
     btnSearchBox.onkeyup = onKeyUpInputSearch.bind(onkeyup);
+
+    const btnCurrentLocation = header.querySelector(
+      "#button-option-current-location"
+    );
+    btnCurrentLocation.onclick = onChangeInputSearch.bind(btnCurrentLocation);
 
     const btnSearchBoxClose = header.querySelector(
       "#button-header-search-close"
@@ -191,12 +177,23 @@ const header = (function () {
       "div-tab-content-" + radioTheOther.id
     );
 
-    if (this.checked) {
-      tabRadioThis.classList.remove("hidden");
-      tabRadioTheOther.classList.add("hidden");
-    } else {
-      tabRadioThis.classList.add("hidden");
-      tabRadioTheOther.classList.remove("hidden");
+    tabRadioThis.classList.remove("hidden");
+    tabRadioTheOther.classList.add("hidden");
+
+    if (this.id === "radio-1") {
+      //carga main current weather
+      getWeatherContentByGeolocation(
+        Number(mainLatitude),
+        Number(mainLongitude),
+        mainUnits
+      );
+    } else if (this.id === "radio-2") {
+      //carga forecast 7 days
+      dailyWeather.loadData(
+        Number(mainLatitude),
+        Number(mainLongitude),
+        mainUnits
+      );
     }
   };
 
@@ -216,11 +213,11 @@ const header = (function () {
 
   return {
     onPageLoad() {
-      mainUnits = currentWeather_BL.UNITS.Celsius;
+      //mainUnits = BL_currentWeather.UNITS.Celsius;
       loadEvents();
     },
     initialLoad(dblLatitude, dblLongitude) {
-      mainUnits = currentWeather_BL.UNITS.Celsius;
+      mainUnits = BL_currentWeather.UNITS.Celsius;
       mainLatitude = dblLatitude;
       mainLongitude = dblLongitude;
       getWeatherContentByGeolocation(

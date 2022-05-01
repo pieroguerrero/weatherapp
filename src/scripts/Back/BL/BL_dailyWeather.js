@@ -1,6 +1,6 @@
 import { DailyWeather_DA } from "../DA/DailyWeather_DA";
 
-const dailyWeather_BL = (function () {
+const BL_dailyWeather = (function () {
   /**
    *
    * @param {number} intLatitude
@@ -21,9 +21,9 @@ const dailyWeather_BL = (function () {
         strUnits
       );
 
-      return objResult.slice(1, 7);
+      return objResult.slice(1, 8);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return null;
     }
   };
@@ -35,4 +35,4 @@ const dailyWeather_BL = (function () {
   };
 })();
 
-export { dailyWeather_BL };
+export { BL_dailyWeather };

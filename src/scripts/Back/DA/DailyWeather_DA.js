@@ -1,6 +1,27 @@
 import { DailyWeather } from "../Model/DailyWeather";
 
 const DailyWeather_DA = (function () {
+  /**
+   *
+   * @param {object} objWeatherAPI
+   * @param {string} strUnits
+   * @param {number} intLongitude
+   * @param {number} intLatitude
+   * @returns {{
+   * getSummaryId: function(): number,
+   * getSummaryName: function(): string,
+   * getIconId: function(): string,
+   * getDate: function(): Date,
+   * getForecastTemp: function(): number,
+   * getMaxTemp: function(): number,
+   * getMinTemp: function(): number,
+   * getLatitude: function(): number,
+   * getLongitude: function(): number,
+   * getUnits: function(): number,
+   * getSunrise: function(): Date,
+   * getSunset: function(): Date
+   * }[]}
+   */
   const formatDailyWeatherList = function (
     objWeatherAPI,
     strUnits,
@@ -8,7 +29,7 @@ const DailyWeather_DA = (function () {
     intLatitude
   ) {
     const intTimeZoneOffSet = Number(objWeatherAPI.timezone_offset);
-    const arrWeatherList = objWeatherAPI.list;
+    const arrWeatherList = objWeatherAPI.daily;
 
     const arrObjDailyWeather = arrWeatherList.map((objWeatherAPI) => {
       const objDailyWeather = DailyWeather.shapeDailyWeather(

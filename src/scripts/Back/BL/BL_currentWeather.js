@@ -1,6 +1,6 @@
 import { WeatherLocation_DA } from "../DA/WeatherLocation_DA";
 
-const currentWeather_BL = (function () {
+const BL_currentWeather = (function () {
   const strVarColorDark = getComputedStyle(
     document.documentElement
   ).getPropertyValue("--dark-color");
@@ -63,15 +63,7 @@ const currentWeather_BL = (function () {
       },
     },
     isDay,
-    COLORS: {
-      Clear() {
-        return strVarColorClear;
-      },
-      Dark() {
-        return strVarColorDark;
-      },
-    },
   };
 })();
 
-export { currentWeather_BL };
+export { BL_currentWeather };

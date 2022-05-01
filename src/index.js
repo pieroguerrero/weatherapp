@@ -1,49 +1,11 @@
-import { currentWeather_BL } from "./scripts/Back/BL/currentWeather_BL";
-import { hourlyWeather_BL } from "./scripts/Back/BL/hourlyWeather_BL";
+import { dailyWeather } from "./scripts/Front/dailyWeather";
 import { header } from "./scripts/Front/header";
 import { mainCurrent } from "./scripts/Front/mainCurrent";
 import "./styles.css";
 
-// const objCurrentWeather_BL = currentWeather_BL.create();
-
-// let intLatitude, intLongitude;
-
-// objCurrentWeather_BL
-//   .getByCityName("lima", currentWeather_BL.UNITS.Celsius)
-//   .then(function (responseCurrent) {
-//     console.log("Feels Like:", responseCurrent.getFeelsLikeTemp().toString());
-//     console.log("Rain Percentage:", responseCurrent.getRainPerc());
-//     console.log("Country Code:", responseCurrent.getCountry());
-//     console.log(
-//       "Current Time UTC:",
-//       responseCurrent.getDateTime().toUTCString()
-//     );
-//     console.log(responseCurrent);
-
-//     intLatitude = responseCurrent.getLatitude();
-//     intLongitude = responseCurrent.getLongitude();
-
-//     const objHourlyWeather_BL = hourlyWeather_BL.create();
-//     objHourlyWeather_BL
-//       .get24HoursForecast(
-//         intLatitude,
-//         intLongitude,
-//         objCurrentWeather_BL.UNITS.Celsius
-//       )
-//       .then(function (responseHourly) {
-//         for (let i = 0; i < responseHourly.length; i++) {
-//           const objHourlyWeather = responseHourly[i];
-
-//           console.log("#:", i);
-//           console.log("Summary Name:", objHourlyWeather.getSummaryName());
-//           console.log("Country Code:", objHourlyWeather.getUnits());
-//           console.log(
-//             "Current Time UTC:",
-//             objHourlyWeather.getTime().toUTCString()
-//           );
-//         }
-//       });
-//   });
-
 header.onPageLoad();
 mainCurrent.onPageLoad();
+dailyWeather.onPageLoad();
+
+//Magdalena Del Mar
+header.initialLoad(-12.0923688, -77.0733086);

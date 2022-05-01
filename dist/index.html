@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App</title>
   </head>
-  <body class="pt-5 px-3">
+  <body class="pt-5 px-3 h-full overflow-x-hidden relative">
     <header class="flex items-center gap-2">
       <div class="flex-1">
         <p
@@ -18,11 +18,11 @@
         <div id="div-searchbox" class="relative hidden">
           <input
             class="peer shadow-inner h-9 text-base w-full rounded-[10px] pl-3 border-2 border-slate-400 border-solid appearance-none relative"
-            type="search"
+            type="text"
             name="input-search-location"
             id="input-search-location"
             autocomplete="off"
-            list="search-current"
+            placeholder="Type the City name"
           />
           <span
             id="span-search-enter"
@@ -42,12 +42,20 @@
               />
             </svg>
           </span>
-          <datalist id="search-current">
-            <option value="◎ Calculate current location"></option>
-          </datalist>
-
           <button
-            class="absolute top-[5px] right-[20px]"
+            type="button"
+            id="button-option-current-location"
+            class="absolute pl-4 gap-1 w-full hidden h-9 z-40 top-10 bg-gray-200 rounded-[10px] shadow-md peer-placeholder-shown:flex peer-placeholder-shown:items-center"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20">
+              <path
+                d="M9.062 19.354V17.604Q6.458 17.312 4.552 15.417Q2.646 13.521 2.354 10.917H0.604V9.042H2.354Q2.646 6.438 4.552 4.521Q6.458 2.604 9.062 2.312V0.562H10.938V2.312Q13.542 2.604 15.448 4.521Q17.354 6.438 17.646 9.042H19.396V10.917H17.646Q17.354 13.521 15.448 15.417Q13.542 17.312 10.938 17.604V19.354ZM10.021 15.75Q12.479 15.75 14.146 14.083Q15.812 12.417 15.812 9.958Q15.812 7.5 14.146 5.833Q12.479 4.167 10.021 4.167Q7.562 4.167 5.896 5.833Q4.229 7.5 4.229 9.958Q4.229 12.417 5.896 14.083Q7.562 15.75 10.021 15.75ZM10.021 13.521Q8.562 13.521 7.51 12.469Q6.458 11.417 6.458 9.958Q6.458 8.5 7.51 7.448Q8.562 6.396 10.021 6.396Q11.479 6.396 12.531 7.448Q13.583 8.5 13.583 9.958Q13.583 11.417 12.531 12.469Q11.479 13.521 10.021 13.521ZM10.021 11.646Q10.688 11.646 11.198 11.135Q11.708 10.625 11.708 9.958Q11.708 9.292 11.198 8.781Q10.688 8.271 10.021 8.271Q9.354 8.271 8.844 8.781Q8.333 9.292 8.333 9.958Q8.333 10.625 8.844 11.135Q9.354 11.646 10.021 11.646ZM10.042 9.938Q10.042 9.938 10.042 9.938Q10.042 9.938 10.042 9.938Q10.042 9.938 10.042 9.938Q10.042 9.938 10.042 9.938Q10.042 9.938 10.042 9.938Q10.042 9.938 10.042 9.938Q10.042 9.938 10.042 9.938Q10.042 9.938 10.042 9.938Z"
+              />
+            </svg>
+            My current location
+          </button>
+          <button
+            class="absolute top-[5px] right-[5px]"
             type="button"
             id="button-header-search-close"
           >
@@ -82,7 +90,7 @@
         <button
           type="button"
           id="button-change-metrics"
-          class="flex justify-center items-center rounded-full h-8 w-8 font-light text-2xl bg-black text-white dark:bg-white dark:text-black"
+          class="flex justify-center items-center rounded-full h-8 w-8 font-light text-xl leading-none bg-black text-white dark:bg-white dark:text-black"
         >
           C°
         </button>
@@ -145,12 +153,7 @@
             </div>
             <div class="flex flex-col justify-center items-center mb-2">
               <div class="h-auto w-20">
-                <img
-                  src="../src/images/weather-conditions/04d.svg"
-                  alt=""
-                  id="img-today-summary-image"
-                  class="w-32"
-                />
+                <img src="" alt="" id="img-today-summary-image" class="w-32" />
                 <!-- <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -314,7 +317,7 @@
               </div>
               <p
                 id="p-today-summary-description"
-                class="text-base font-bold dark:text-white"
+                class="text-base font-bold text-center dark:text-white"
               >
                 Scattered Clouds
               </p>
@@ -368,16 +371,30 @@
             </div>
           </div>
         </div>
-        <div>
-          <h2 class="text-lg font-bold text-center dark:text-white">
+        <div class="flex flex-col gap-6">
+          <h2 class="text-xl font-bold text-center dark:text-white">
             24 Hours Forecast
           </h2>
-          <ul class="flex items-center gap-4 overflow-x-visible">
-            <template id="tmp-24hf-list">
-              <li class="flex flex-col justify-center items gap-2">
-                <p class="p-24hf-item-tomorrow dark:text-white"></p>
-                <p class="p-24hf-item-temperature dark:text-white"></p>
-                <img id="img-24hf-item-weather-image" src="" alt="" />
+          <ul
+            id="ul-24hf-list"
+            class="flex items-center gap-5 p-4 pt-1 overflow-auto"
+          >
+            <template id="tmp-24hf-list-item">
+              <li
+                class="flex flex-col justify-center items-center gap-3 w-16 flex-shrink-0"
+              >
+                <div class="flex justify-center items-center gap-1 flex-1">
+                  <p
+                    class="p-24hf-item-tomorrow text-xs text-gray-600 dark:text-white"
+                  ></p>
+                  <p
+                    class="p-24hf-item-time flex-1 whitespace-nowrap dark:text-white"
+                  ></p>
+                </div>
+                <p
+                  class="p-24hf-item-temperature font-bold dark:text-white"
+                ></p>
+                <img class="img-24hf-item-weather-image w-11 h-auto" />
               </li>
             </template>
           </ul>
@@ -385,10 +402,20 @@
       </div>
       <div id="div-tab-content-radio-2" class="hidden">
         <div class="flex justify-end">
-          <img id="img-7df-header-sunrise-image" src="" alt="" />
-          <img id="img-7df-header-sunset-image" src="" alt="" />
+          <img
+            id="img-7df-header-sunrise-image"
+            src=""
+            alt=""
+            class="w-11 h-auto"
+          />
+          <img
+            id="img-7df-header-sunset-image"
+            src=""
+            alt=""
+            class="w-11 h-auto"
+          />
         </div>
-        <ul class="flex flex-col">
+        <ul id="ul-7df-list" class="flex flex-col">
           <template id="tmp-7df-list">
             <li class="flex justify-center">
               <p class="p-7df-item-dayname"></p>
@@ -408,6 +435,70 @@
       </div>
     </main>
     <footer></footer>
+    <div
+      id="div-shade-loading"
+      class="absolute top-0 left-0 w-full h-full bg-gray-600 bg-opacity-50 flex justify-center items-center z-50 hidden"
+    >
+      <div class="w-20 h-auto">
+        <svg
+          version="1.1"
+          id="L7"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          x="0px"
+          y="0px"
+          viewBox="0 0 100 100"
+          enable-background="new 0 0 100 100"
+          xml:space="preserve"
+        >
+          <path
+            fill="#ffffff"
+            d="M31.6,3.5C5.9,13.6-6.6,42.7,3.5,68.4c10.1,25.7,39.2,38.3,64.9,28.1l-3.1-7.9c-21.3,8.4-45.4-2-53.8-23.3
+       c-8.4-21.3,2-45.4,23.3-53.8L31.6,3.5z"
+          >
+            <animateTransform
+              attributeName="transform"
+              attributeType="XML"
+              type="rotate"
+              dur="2s"
+              from="0 50 50"
+              to="360 50 50"
+              repeatCount="indefinite"
+            ></animateTransform>
+          </path>
+          <path
+            fill="#ffffff"
+            d="M42.3,39.6c5.7-4.3,13.9-3.1,18.1,2.7c4.3,5.7,3.1,13.9-2.7,18.1l4.1,5.5c8.8-6.5,10.6-19,4.1-27.7
+       c-6.5-8.8-19-10.6-27.7-4.1L42.3,39.6z"
+          >
+            <animateTransform
+              attributeName="transform"
+              attributeType="XML"
+              type="rotate"
+              dur="1s"
+              from="0 50 50"
+              to="-360 50 50"
+              repeatCount="indefinite"
+            ></animateTransform>
+          </path>
+          <path
+            fill="#ffffff"
+            d="M82,35.7C74.1,18,53.4,10.1,35.7,18S10.1,46.6,18,64.3l7.6-3.4c-6-13.5,0-29.3,13.5-35.3s29.3,0,35.3,13.5
+       L82,35.7z"
+          >
+            <animateTransform
+              attributeName="transform"
+              attributeType="XML"
+              type="rotate"
+              dur="2s"
+              from="0 50 50"
+              to="360 50 50"
+              repeatCount="indefinite"
+            ></animateTransform>
+          </path>
+        </svg>
+      </div>
+    </div>
     <script src="./bundle.js"></script>
   </body>
 </html>
