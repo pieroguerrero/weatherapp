@@ -54,7 +54,7 @@ Click an image to enlarge.
 
 | Dashboard 1 | Dashboard 1 responsive | Dashboard 2 |
 | ------------ | -------------- | ------------- |
-| <img src="https://user-images.githubusercontent.com/26049605/189377040-22dac376-4787-4041-9152-b3735654cdcd.png" width="370px" height="auto" alt="Tasks Dashboard" title="Click to enlarge">   | <img src="https://user-images.githubusercontent.com/26049605/189377750-3bc91486-81eb-45e0-a761-9b1faafd70d4.png" width="200px" height="auto" alt="Tasks Dashboard" title="Click to enlarge">     | <img src="https://user-images.githubusercontent.com/26049605/189377466-66ba3ba7-5282-45bd-8711-9be33404981c.png" width="200px" height="auto" alt="Editing Task" title="Click to enlarge">    |
+| <img src="https://user-images.githubusercontent.com/26049605/189377040-22dac376-4787-4041-9152-b3735654cdcd.png" width="370px" height="auto" alt="Tasks Dashboard" title="Click to enlarge">   | <img src="https://user-images.githubusercontent.com/26049605/189377750-3bc91486-81eb-45e0-a761-9b1faafd70d4.png" width="200px" height="auto" alt="Tasks Dashboard" title="Click to enlarge">     | <img src="https://user-images.githubusercontent.com/26049605/189377466-66ba3ba7-5282-45bd-8711-9be33404981c.png" width="370px" height="auto" alt="Editing Task" title="Click to enlarge">    |
 
 ## Setup
 Clone this project by doing:
